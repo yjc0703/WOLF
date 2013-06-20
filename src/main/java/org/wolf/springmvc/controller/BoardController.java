@@ -9,8 +9,6 @@ public class BoardController {
 	// http://localhost:8880/springmvc/board/list
 	@RequestMapping(value={"/board/list", "/board"})
 	public String list() {
-		System.out.println("나예요");
 		return "/board/list";
-		// /WEB-INF/views/board/list.jsp
 	}
 }

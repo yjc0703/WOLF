@@ -7,6 +7,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-나는 한글이다.
+<table>
+<tr>
+	<td>NO</td>
+	<td>제목</td>
+	<td>작성자</td>
+	<td>작성일</td>
+	<td>조회수</td>
+</tr>
+<c:forEach var="article" items="${board}" varStatus="roop">
+<tr>
+	<td>${article.seq}</td>
+	<td>
+	${article.title}</td>
+	<td>${article.writer}</td>
+	<td>${article.regDate}</td>
+	<td>${article.cnt}</td>
+</tr>
+</c:forEach>
+</table>
 </body>
 </html>
