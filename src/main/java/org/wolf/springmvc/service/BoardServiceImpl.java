@@ -15,7 +15,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	public List<Map<String, Object>> list() {
+	public List<BoardVO> list() {
 		return boardDao.list();
 	}
 }

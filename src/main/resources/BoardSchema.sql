@@ -1,13 +1,8 @@
 CREATE  TABLE WOLF_BOARD (
-
-  seq INT NOT NULL PRIMARY KEY,
-
-  title VARCHAR(255) NULL ,
-
-  content VARCHAR(1000) NULL ,
-
-  writer VARCHAR(10) NULL ,
-
-  regDate DATE NULL ,
-
-  cnt INT NULL);
+  seq 		INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  title 	VARCHAR(255) NOT NULL ,
+  content 	VARCHAR(1000) NOT NULL ,
+  writer 	VARCHAR(10) NOT NULL ,
+  regDate 	DATE NOT NULL ,
+  cnt 		INT NOT NULL
+);
