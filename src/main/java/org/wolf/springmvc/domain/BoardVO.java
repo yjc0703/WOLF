@@ -2,12 +2,23 @@ package org.wolf.springmvc.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BoardVO {
 	private int seq;
+	
+	@NotEmpty()
 	private String title;
+	
+	@NotEmpty()
 	private String content;
+	
+	@NotEmpty()
 	private String writer;
-	private Date regDate;
+	private Date regDate;	
+
 	private int cnt;
 	
 	public int getSeq() {
