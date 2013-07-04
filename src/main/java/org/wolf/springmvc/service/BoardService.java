@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 import org.wolf.springmvc.domain.BoardVO;
 
 public interface BoardService {
-	public List<Map<String, Object>> list();
+	public List<BoardVO> list();
 }

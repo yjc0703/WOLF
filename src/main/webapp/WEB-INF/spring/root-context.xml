@@ -10,8 +10,4 @@
 		<jdbc:script location="classpath:BoardSchema.sql"/>
 		<jdbc:script location="classpath:BoardData.sql"/>
 	</jdbc:embedded-database>
-	
-	<bean id="boardDao" class="org.wolf.springmvc.dao.BoardDaoJDBC">
-		<property name="dataSource" ref="datasource"/>
-	</bean>
 </beans>

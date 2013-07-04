@@ -10,5 +10,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+
+Look at p246 2.2.2 SimpleJdbcTemplate in toby's Spring 3.1
 </body>
 </html>

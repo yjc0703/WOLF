@@ -1,37 +1,72 @@
 package org.wolf.springmvc.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.wolf.springmvc.domain.BoardVO;
 
+@Component
 public class BoardDaoJDBC implements BoardDao {
-	private SimpleJdbcTemplate jdbc;
-
+	private DataSource dataSource;
+	private SimpleJdbcTemplate simpleJdbcTemplate;
+	private BeanPropertyRowMapper<BoardVO> beanPropertyRowMapper;
+	
+	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		jdbc = new SimpleJdbcTemplate(dataSource);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Map<String, Object>> list() {
-		String sql = "select * from WOLF_BOARD";
-		return jdbc.queryForList(sql);
+		this.dataSource = dataSource;
+		this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
+		this.beanPropertyRowMapper = new BeanPropertyRowMapper<BoardVO>(BoardVO.class);
 	}
 	
-//	private class BoardRowMapper implements RowMapper<BoardVO> {
-//		public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//			BoardVO board = new BoardVO();
-//			board.setSeq(rs.getInt("seq"));
-//			board.setTitle(rs.getString("title"));
-//			board.setContent(rs.getString("content"));
-//			board.setWriter(rs.getString("writer"));
-//			board.setRegDate(rs.getDate("regDate"));
-//			board.setContent(rs.getString("setContent"));
-//			board.setCnt(rs.getInt("cnt"));
-//			return board;
-//		}
-//	}
+	@Override
+	public List<BoardVO> list() {
+		String sql = "select * from WOLF_BOARD where 1 = :nobody";
+		List<BoardVO> boardList = simpleJdbcTemplate.query(sql, this.beanPropertyRowMapper, 1);
+		return boardList;
+	}
+	
+	@Override
+	public BoardVO select(int seq) {
+		String sql = "select * from WOLF_BOARD where seq = :seq";
+		BoardVO boardVO = simpleJdbcTemplate.queryForObject(sql, this.beanPropertyRowMapper, seq);
+		return new BoardVO();
+	}
+		
+	@Override
+	public BoardVO inert(BoardVO boardVO) {
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+													.withTableName("WOLF_BOARD")
+													.usingGeneratedKeyColumns("seq");
+
+		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
+		
+		int seq = simpleJdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource).intValue();
+		
+		boardVO.setSeq(seq);
+		
+		return boardVO;
+	}	
+	
+	@Override
+	public int update(BoardVO boardVO) {
+		String sql = "update WOLF_BOARD set title = :title, content = :content where seq = :seq";
+		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
+		int result = simpleJdbcTemplate.update(sql, beanPropertySqlParameterSource);
+		return result;
+	}
+	
+	@Override
+	public int delete(int seq) {
+		String sql = "delete from WOLF_BOARD where seq = :seq";
+		int result = simpleJdbcTemplate.update(sql, seq);
+		return result;
+	}	
+	
 }
