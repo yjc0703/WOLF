@@ -34,14 +34,14 @@
 				<td><form:input path="writer"/><form:errors path="writer" /></td>
 			</tr>
 			<tr>
-				<th><form:label path="cnt">조회수</form:label></th>
-				<td><form:input path="cnt"/><form:errors path="cnt" /></td>
+				<th><form:label path="password">비밀번호</form:label></th>
+				<td><form:input path="password"/><form:errors path="password" /></td>
 			</tr>
 			</table>
 		</div>
 		<div class="span9 text-right">
 			<input type="submit" class="btn"/>
-			<input type="reset" class="btn" />
+			<a href="<c:url value="/board/list" />" class="btn">목록</a>
 		</div>
 	</div>
 	</form:form>

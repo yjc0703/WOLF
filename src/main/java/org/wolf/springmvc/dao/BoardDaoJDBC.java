@@ -1,5 +1,6 @@
 package org.wolf.springmvc.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -38,20 +39,27 @@ public class BoardDaoJDBC implements BoardDao {
 		BoardVO boardVO = simpleJdbcTemplate.queryForObject(sql, this.beanPropertyRowMapper, seq);
 		return boardVO;
 	}
+	
+	@Override
+	public int updateReadCount(int seq) {
+		String sql = "update WOLF_BOARD set cnt = cnt + 1 where seq = :seq";
+		//BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
+		int result = simpleJdbcTemplate.update(sql, new Object[] {seq});
+		return result;
+	}
 		
 	@Override
-	public BoardVO inert(BoardVO boardVO) {
+	public void inert(BoardVO boardVO) {
 		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
 													.withTableName("WOLF_BOARD")
 													.usingGeneratedKeyColumns("seq");
 
+		boardVO.setRegDate(new Date());
 		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
 		
 		int seq = simpleJdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource).intValue();
 		
 		boardVO.setSeq(seq);
-		
-		return boardVO;
 	}	
 	
 	@Override

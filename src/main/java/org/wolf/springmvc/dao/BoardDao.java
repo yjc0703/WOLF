@@ -11,7 +11,9 @@ public interface BoardDao {
 
 	public abstract int update(BoardVO boardVO);
 
-	public abstract BoardVO inert(BoardVO boardVO);
+	public abstract void inert(BoardVO boardVO);
 
 	public abstract BoardVO select(int seq);
+
+	public abstract int updateReadCount(int seq);
 }

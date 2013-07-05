@@ -13,4 +13,8 @@ public interface BoardService {
 	public abstract int delete(int seq);
 
 	public abstract BoardVO read(int seq);
+
+	public abstract int edit(BoardVO boardVO);
+
+	public abstract void write(BoardVO boardVO);
 }

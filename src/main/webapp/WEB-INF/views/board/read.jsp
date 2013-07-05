@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>새글</title>
+<title>읽기</title>
 <!-- Bootstrap -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,8 +43,8 @@
 			</table>
 		</div>
 		<div class="span9 text-right">
-			<a href="<c:url value="/board/edit/${boardVO.seq}" />">수정</a>
-			<a href="<c:url value="/board/delete/${boardVO.seq}" />">삭제</a>
+			<a href="<c:url value="/board/edit/${boardVO.seq}" />" class="btn">수정</a>
+			<a href="<c:url value="/board/list" />" class="btn">목록</a>
 		</div>
 	</div>
 </div>

@@ -17,6 +17,10 @@ public class BoardVO {
 	
 	@NotEmpty()
 	private String writer;
+	
+	@NotEmpty()
+	private String password;
+	
 	private Date regDate;	
 
 	private int cnt;
@@ -44,6 +48,12 @@ public class BoardVO {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public Date getRegDate() {
 		return regDate;
