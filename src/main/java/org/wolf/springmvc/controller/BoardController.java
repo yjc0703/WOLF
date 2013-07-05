@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.wolf.springmvc.domain.BoardVO;
 import org.wolf.springmvc.service.BoardService;
 
@@ -37,5 +39,20 @@ public class BoardController {
 		} else {
 			return "redirect:/board/list";
 		}
+	}
+	
+	// /board/delete/1
+	@RequestMapping(value="/board/delete/{seq}")
+	public String delete(@PathVariable int seq) {
+		boardService.delete(seq);
+		return "redirect:/board/list";
+	}
+	
+	// /board/read/1
+	@RequestMapping(value="/board/read/{seq}")
+	public String read(@PathVariable int seq, Model model) {
+		BoardVO boardVO = boardService.read(seq);
+		model.addAttribute("boardVO", boardVO);
+		return "/board/read";
 	}
 }

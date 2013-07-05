@@ -36,7 +36,7 @@ public class BoardDaoJDBC implements BoardDao {
 	public BoardVO select(int seq) {
 		String sql = "select * from WOLF_BOARD where seq = :seq";
 		BoardVO boardVO = simpleJdbcTemplate.queryForObject(sql, this.beanPropertyRowMapper, seq);
-		return new BoardVO();
+		return boardVO;
 	}
 		
 	@Override
@@ -67,6 +67,5 @@ public class BoardDaoJDBC implements BoardDao {
 		String sql = "delete from WOLF_BOARD where seq = :seq";
 		int result = simpleJdbcTemplate.update(sql, seq);
 		return result;
-	}	
-	
+	}
 }

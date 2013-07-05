@@ -18,4 +18,14 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> list() {
 		return boardDao.list();
 	}
+
+	@Override
+	public int delete(int seq) {
+		return boardDao.delete(seq);
+	}
+
+	@Override
+	public BoardVO read(int seq) {
+		return boardDao.select(seq);
+	}
 }
