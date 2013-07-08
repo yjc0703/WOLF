@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="bs-docs-grid">
-	<h1>목록</h1>
+	<h1>새글</h1>
 	<form:form commandName="boardVO" method="post">
 	<div class="row">
 		<div class="span9">
