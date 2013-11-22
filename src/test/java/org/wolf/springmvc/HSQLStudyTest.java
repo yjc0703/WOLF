@@ -1,7 +1,7 @@
 package org.wolf.springmvc;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class HSQLStudyTest {
 	public void initData() {
 		System.out.println("initData");
 		
-		int count = template.queryForInt("select count(*) from sqlmap");
+		int count = template.queryForObject("select count(*) from sqlmap", Integer.class);
 		
 		assertThat(count, is(2));
 		
@@ -70,7 +70,7 @@ public class HSQLStudyTest {
 		
 		template.update("insert into sqlmap(key_, sql_) values(?, ?)", "KEY3", "SQL3");
 		
-		assertThat(template.queryForInt("select count(*) from sqlmap"), is(3));
+		assertThat(template.queryForObject("select count(*) from sqlmap", Integer.class), is(3));
 	}
 }
 

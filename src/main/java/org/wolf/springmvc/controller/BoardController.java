@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
