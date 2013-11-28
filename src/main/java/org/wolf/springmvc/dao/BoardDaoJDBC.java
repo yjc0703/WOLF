@@ -51,7 +51,8 @@ public class BoardDaoJDBC implements BoardDao {
 		
 	@Override
 	public void inert(BoardVO boardVO) {
-		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("WOLF_BOARD").usingGeneratedKeyColumns("seq");
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+			.withTableName("WOLF_BOARD").usingGeneratedKeyColumns("seq");
 
 		boardVO.setRegDate(new Date());
 		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
@@ -64,7 +65,7 @@ public class BoardDaoJDBC implements BoardDao {
 	public int update(BoardVO boardVO) {
 		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "update WOLF_BOARD set title = :title, content = :content where seq = :seq";
-		BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(BoardVO.class);
+		BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(boardVO);
 		int result = jdbcTemplate.update(sql, parameterSource);
 		return result;
 	}
