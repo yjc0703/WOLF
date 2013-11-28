@@ -44,32 +44,28 @@ public class BoardDaoJDBC implements BoardDao {
 	@Override
 	public int updateReadCount(int seq) {
 		String sql = "update WOLF_BOARD set cnt = cnt + 1 where seq = :seq";
-		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-		BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(BoardVO.class);
-		int result = jdbcTemplate.update(sql, parameterSource);
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		int result = jdbcTemplate.update(sql, seq);
 		return result;
 	}
 		
 	@Override
 	public void inert(BoardVO boardVO) {
-		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
-													.withTableName("WOLF_BOARD")
-													.usingGeneratedKeyColumns("seq");
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("WOLF_BOARD").usingGeneratedKeyColumns("seq");
 
 		boardVO.setRegDate(new Date());
 		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
 		
-		int seq = simpleJdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource).intValue();
-		
+		int seq = simpleJdbcInsert.executeAndReturnKey(beanPropertySqlParameterSource).intValue();		
 		boardVO.setSeq(seq);
-	}	
+	}
 	
 	@Override
 	public int update(BoardVO boardVO) {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "update WOLF_BOARD set title = :title, content = :content where seq = :seq";
-		BeanPropertySqlParameterSource beanPropertySqlParameterSource = new BeanPropertySqlParameterSource(boardVO);
-		int result = jdbcTemplate.update(sql, beanPropertySqlParameterSource);
+		BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(BoardVO.class);
+		int result = jdbcTemplate.update(sql, parameterSource);
 		return result;
 	}
 	
